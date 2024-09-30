@@ -52,6 +52,7 @@ app.get("/A1_API", (req, res) => {
       if (!questions[row.id]) {
         questions[row.id] = {
           id: row.id,
+          type: row.type,
           question_text: row.content,
           image_url: row.url,
           answers: [],
