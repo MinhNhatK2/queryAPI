@@ -46,45 +46,55 @@ API này được xây dựng để truy vấn danh sách câu hỏi và đáp �
 
 1. Lấy danh sách câu hỏi và đáp án cho bài thi
 
-   ````http
+   ```http
    GET/X_api
 
+   ```
+
    Response:
+
    ```json
-           {
-       "exam_id": 1,
-       "questions": [
-           {
-           "question_id": 1,
-           "question_text": "Câu hỏi 1 là gì?",
-           "answers": [
-               { "answer_id": 1, "answer_text": "Đáp án A", "is_correct": false },
-               { "answer_id": 2, "answer_text": "Đáp án B", "is_correct": true }
-           ]
-           },
-           {
-           "question_id": 2,
-           "question_text": "Câu hỏi 2 là gì?",
-           "answers": [
-               { "answer_id": 3, "answer_text": "Đáp án A", "is_correct": true },
-               { "answer_id": 4, "answer_text": "Đáp án B", "is_correct": false }
-           ]
-           }
-       ]
+   {
+     "exam_id": 1,
+     "questions": [
+       {
+         "question_id": 1,
+         "question_text": "Câu hỏi 1 là gì?",
+         "answers": [
+           { "answer_id": 1, "answer_text": "Đáp án A", "is_correct": false },
+           { "answer_id": 2, "answer_text": "Đáp án B", "is_correct": true }
+         ]
+       },
+       {
+         "question_id": 2,
+         "question_text": "Câu hỏi 2 là gì?",
+         "answers": [
+           { "answer_id": 3, "answer_text": "Đáp án A", "is_correct": true },
+           { "answer_id": 4, "answer_text": "Đáp án B", "is_correct": false }
+         ]
+       }
+     ]
    }
-   ````
+   ```
 
 ## Deploy lên Vercel
 
 Bước 1: Đăng ký tài khoản Vercel
 Truy cập Vercel và đăng ký tài khoản.
-Bước 2: Deploy ứng dụng 1. Kết nối repository từ GitHub (hoặc một dịch vụ Git khác) với Vercel. 2. Cấu hình biến môi trường trên Vercel:
+
+Bước 2: Deploy ứng dụng
+
+1.  Kết nối repository từ GitHub (hoặc một dịch vụ Git khác) với Vercel.
+
+2.  Cấu hình biến môi trường trên Vercel:
 
         - Truy cập vào phần Settings của dự án trên Vercel.
         - Thêm các biến môi trường giống như trong file .env ở mục Environment Variables.
-    3. Chạy lệnh deploy trực tiếp từ Vercel Dashboard hoặc dùng lệnh CLI:
-            ```bash
-            vercel
+
+3.  Chạy lệnh deploy trực tiếp từ Vercel Dashboard hoặc dùng lệnh CLI:
+    ```bash
+    vercel
+    ```
 
 Bước 3: Hoàn thành
 Sau khi deploy thành công, bạn sẽ nhận được URL như https://your-project.vercel.app/X_api
