@@ -88,8 +88,9 @@ Bước 2: Deploy ứng dụng
 
 2.  Cấu hình biến môi trường trên Vercel:
 
-        - Truy cập vào phần Settings của dự án trên Vercel.
-        - Thêm các biến môi trường giống như trong file .env ở mục Environment Variables.
+    Truy cập vào phần Settings của dự án trên Vercel.
+
+    Thêm các biến môi trường giống như trong file .env ở mục Environment Variables.
 
 3.  Chạy lệnh deploy trực tiếp từ Vercel Dashboard hoặc dùng lệnh CLI:
     ```bash
