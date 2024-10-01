@@ -1,11 +1,11 @@
 # Quiz API
 
-API này được xây dựng để truy vấn danh sách câu hỏi và đáp án từ cơ sở dữ liệu MySQL Cloud Clever và deploy trên Vercel. API trả về các câu hỏi và đáp án dưới dạng JSON, phục vụ cho một ứng dụng thi trắc nghiệm online.
+API này được xây dựng để truy vấn danh sách câu hỏi và đáp án từ cơ sở dữ liệu MySQL Clever Cloud và deploy trên Vercel. API trả về các câu hỏi và đáp án dưới dạng JSON, phục vụ cho một ứng dụng thi trắc nghiệm online.
 
 ## Mục lục
 
 - [Cài đặt](#cài-đặt)
-- [Cấu hình cơ sở dữ liệu MySQL trên Cloud Clever](#cấu-hình-cơ-sở-dữ-liệu-mysql-trên-cloud-clever)
+- [Cấu hình cơ sở dữ liệu MySQL trên Clever Cloud](#cấu-hình-cơ-sở-dữ-liệu-mysql-trên-clever-cloud)
 - [API Endpoints](#api-endpoints)
 - [Deploy trên Vercel](#deploy-trên-vercel)
 - [Sử dụng](#sử-dụng)
@@ -36,7 +36,7 @@ API này được xây dựng để truy vấn danh sách câu hỏi và đáp �
    DB_DATABASE=<MYSQL_DATABASE>
    ```
 
-## Cấu hình cơ sở dữ liệu MySQL trên Cloud Clever
+## Cấu hình cơ sở dữ liệu MySQL trên Clever Cloud
 
 1. Đăng nhập vào Clever Cloud.
 2. Tạo một ứng dụng MySQL và sao chép thông tin kết nối (host, user, password, database).
