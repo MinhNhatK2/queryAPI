@@ -62,17 +62,17 @@ const createAPI = (route, sqlQuery) => {
 const sqlA1 = `
   SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
   FROM (
-    (SELECT * FROM question_motos WHERE type = 0 LIMIT 1)
+    (SELECT * FROM question_motos WHERE type = 0 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_motos WHERE type = 1 LIMIT 8)
+    (SELECT * FROM question_motos WHERE type = 1 ORDER BY RANDOM() LIMIT 8)
     UNION ALL
-    (SELECT * FROM question_motos WHERE type = 2 LIMIT 1)
+    (SELECT * FROM question_motos WHERE type = 2 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_motos WHERE type = 3 LIMIT 1)
+    (SELECT * FROM question_motos WHERE type = 3 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_motos WHERE type = 4 LIMIT 7)
+    (SELECT * FROM question_motos WHERE type = 4 ORDER BY RANDOM() LIMIT 7)
     UNION ALL
-    (SELECT * FROM question_motos WHERE type = 5 LIMIT 7)
+    (SELECT * FROM question_motos WHERE type = 5 ORDER BY RANDOM() LIMIT 7)
   ) AS q
   LEFT JOIN answer_motos AS ans ON q.id = ans.id_que;
 `;
@@ -80,23 +80,23 @@ const sqlA1 = `
 const sqlB1 = `
   SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
   FROM (
-    (SELECT * FROM question_otos WHERE type = 0 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 0 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 1 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 1 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 2 LIMIT 6)
+    (SELECT * FROM question_otos WHERE type = 2 ORDER BY RANDOM() LIMIT 6)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 3 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 3 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 4 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 4 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 6 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 6 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 7 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 7 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 8 LIMIT 9)
+    (SELECT * FROM question_otos WHERE type = 8 ORDER BY RANDOM() LIMIT 9)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 9 LIMIT 9)
+    (SELECT * FROM question_otos WHERE type = 9 ORDER BY RANDOM() LIMIT 9)
   ) AS q
   LEFT JOIN answer_otos AS ans ON q.id = ans.id_que;
 `;
@@ -104,25 +104,25 @@ const sqlB1 = `
 const sqlB2 = `
   SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
   FROM (
-    (SELECT * FROM question_otos WHERE type = 0 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 0 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 1 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 1 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 2 LIMIT 7)
+    (SELECT * FROM question_otos WHERE type = 2 ORDER BY RANDOM() LIMIT 7)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 3 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 3 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 4 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 4 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 5 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 5 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 6 LIMIT 2)
+    (SELECT * FROM question_otos WHERE type = 6 ORDER BY RANDOM() LIMIT 2)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 7 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 7 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 8 LIMIT 10)
+    (SELECT * FROM question_otos WHERE type = 8 ORDER BY RANDOM() LIMIT 10)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 9 LIMIT 10)
+    (SELECT * FROM question_otos WHERE type = 9 ORDER BY RANDOM() LIMIT 10)
   ) AS q
   LEFT JOIN answer_otos AS ans ON q.id = ans.id_que;
 `;
@@ -130,25 +130,25 @@ const sqlB2 = `
 const sqlC = `
   SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
   FROM (
-    (SELECT * FROM question_otos WHERE type = 0 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 0 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 1 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 1 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 2 LIMIT 7)
+    (SELECT * FROM question_otos WHERE type = 2 ORDER BY RANDOM() LIMIT 7)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 3 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 3 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 4 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 4 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 5 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 5 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 6 LIMIT 2)
+    (SELECT * FROM question_otos WHERE type = 6 ORDER BY RANDOM() LIMIT 2)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 7 LIMIT 1)
+    (SELECT * FROM question_otos WHERE type = 7 ORDER BY RANDOM() LIMIT 1)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 8 LIMIT 14)
+    (SELECT * FROM question_otos WHERE type = 8 ORDER BY RANDOM() LIMIT 14)
     UNION ALL
-    (SELECT * FROM question_otos WHERE type = 9 LIMIT 11)
+    (SELECT * FROM question_otos WHERE type = 9 ORDER BY RANDOM() LIMIT 11)
   ) AS q
   LEFT JOIN answer_otos AS ans ON q.id = ans.id_que;
 `;
