@@ -42,7 +42,7 @@ const createAPI = (route, sqlQuery) => {
             id: row.id,
             type: row.type,
             question_text: row.content,
-            image_url: row.url,
+            image_url: row.URL,
             answers: [],
           };
         }
