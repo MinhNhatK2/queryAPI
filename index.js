@@ -1,18 +1,20 @@
 //API
+require("pg");
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
+const sequelize = require("./models/database");
+const { Client } = require("pg");
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 3000;
 
-// Kết nối tới MySQL
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: 3306,
+// Kết nối tới PostgreSQL
+const db = new Client({
+  host: "aws-0-ap-southeast-1.pooler.supabase.com",
+  user: "postgres.qyzzpelhwxvrpyglmkgr",
+  password: "minh080402.220502",
+  database: "postgres",
+  port: 6543, // PostgreSQL sử dụng cổng 5432 mặc định
 });
 
 db.connect((err) => {
@@ -20,7 +22,7 @@ db.connect((err) => {
     console.error("Lỗi kết nối:", err);
     return;
   }
-  console.log("Kết nối MySQL thành công");
+  console.log("Kết nối PostgreSQL thành công");
 });
 
 // API để lấy câu hỏi từ database
@@ -28,19 +30,19 @@ app.get("/A1_API", (req, res) => {
   const sql = `
     SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
     FROM (
-      (SELECT * FROM question_motos WHERE type = 0 ORDER BY RAND() LIMIT 1)
+      (SELECT * FROM question_motos WHERE type = 0 LIMIT 1)
       UNION ALL
-      (SELECT * FROM question_motos WHERE type = 1 ORDER BY RAND() LIMIT 8)
+      (SELECT * FROM question_motos WHERE type = 1 LIMIT 8)
       UNION ALL
-      (SELECT * FROM question_motos WHERE type = 2 ORDER BY RAND() LIMIT 1)
+      (SELECT * FROM question_motos WHERE type = 2 LIMIT 1)
       UNION ALL
-      (SELECT * FROM question_motos WHERE type = 3 ORDER BY RAND() LIMIT 1)
+      (SELECT * FROM question_motos WHERE type = 3 LIMIT 1)
       UNION ALL
-      (SELECT * FROM question_motos WHERE type = 4 ORDER BY RAND() LIMIT 7)
+      (SELECT * FROM question_motos WHERE type = 4 LIMIT 7)
       UNION ALL
-      (SELECT * FROM question_motos WHERE type = 5 ORDER BY RAND() LIMIT 7)
-    ) as q
-    LEFT JOIN answer_motos ans ON q.id = ans.id_que;
+      (SELECT * FROM question_motos WHERE type = 5 LIMIT 7)
+    ) AS q
+    LEFT JOIN answer_motos AS ans ON q.id = ans.id_que;
   `;
 
   db.query(sql, (err, results) => {
@@ -48,8 +50,9 @@ app.get("/A1_API", (req, res) => {
       return res.status(500).json({ error: err });
     }
 
+    // Sử dụng results.rows để lấy mảng kết quả từ PostgreSQL
     const questions = {};
-    results.forEach((row) => {
+    results.rows.forEach((row) => {
       if (!questions[row.id]) {
         questions[row.id] = {
           id: row.id,
@@ -77,72 +80,63 @@ app.get("/B1_API", (req, res) => {
     FROM ((
     SELECT * 
     FROM question_otos
-    WHERE type = 0
-    ORDER BY RAND()
+    WHERE type = 0    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 1
-    ORDER BY RAND()
+    WHERE type = 1    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 2
-    ORDER BY RAND()
+    WHERE type = 2    
     LIMIT 6
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 3
-    ORDER BY RAND()
+    WHERE type = 3    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 4
-    ORDER BY RAND()
+    WHERE type = 4    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 6
-    ORDER BY RAND()
+    WHERE type = 6    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 7
-    ORDER BY RAND()
+    WHERE type = 7    
     LIMIT 1
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 8
-    ORDER BY RAND()
+    WHERE type = 8    
     LIMIT 9
 )
 UNION ALL
 (
     SELECT * 
     FROM question_otos
-    WHERE type = 9
-    ORDER BY RAND()
+    WHERE type = 9    
     LIMIT 9
 )) as q LEFT JOIN answer_otos ans ON q.id = ans.id_que;
   `;
@@ -152,8 +146,9 @@ UNION ALL
       return res.status(500).json({ error: err });
     }
 
+    // Sử dụng results.rows để lấy mảng kết quả từ PostgreSQL
     const questions = {};
-    results.forEach((row) => {
+    results.rows.forEach((row) => {
       if (!questions[row.id]) {
         questions[row.id] = {
           id: row.id,
@@ -173,6 +168,7 @@ UNION ALL
     res.json(Object.values(questions));
   });
 });
+
 // API để lấy câu hỏi từ database
 app.get("/B2_API", (req, res) => {
   const sql = `SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
@@ -181,7 +177,6 @@ app.get("/B2_API", (req, res) => {
     SELECT * 
     FROM question_otos
     WHERE type = 0
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -189,7 +184,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 1
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -197,7 +191,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 2
-    ORDER BY RAND()
     LIMIT 7
 )
 UNION ALL
@@ -205,7 +198,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 3
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -213,7 +205,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 4
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -221,7 +212,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 5
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -229,7 +219,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 6
-    ORDER BY RAND()
     LIMIT 2
 )
 UNION ALL
@@ -237,7 +226,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 7
-    ORDER BY RAND()
     LIMIT 1
 )
 UNION ALL
@@ -245,7 +233,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 8
-    ORDER BY RAND()
     LIMIT 10
 )
 UNION ALL
@@ -253,7 +240,6 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 9
-    ORDER BY RAND()
     LIMIT 10
 )) as q LEFT JOIN answer_otos ans ON q.id = ans.id_que;
   `;
@@ -263,8 +249,9 @@ UNION ALL
       return res.status(500).json({ error: err });
     }
 
+    // Sử dụng results.rows để lấy mảng kết quả từ PostgreSQL
     const questions = {};
-    results.forEach((row) => {
+    results.rows.forEach((row) => {
       if (!questions[row.id]) {
         questions[row.id] = {
           id: row.id,
@@ -284,6 +271,7 @@ UNION ALL
     res.json(Object.values(questions));
   });
 });
+
 // API để lấy câu hỏi từ database
 app.get("/C_API", (req, res) => {
   const sql = `SELECT q.*, ans.id as ans_id, ans.content as answer, ans.is_correct 
@@ -292,7 +280,7 @@ app.get("/C_API", (req, res) => {
     SELECT * 
     FROM question_otos
     WHERE type = 0
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -300,7 +288,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 1
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -308,7 +296,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 2
-    ORDER BY RAND()
+    
     LIMIT 7
 )
 UNION ALL
@@ -316,7 +304,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 3
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -324,7 +312,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 4
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -332,7 +320,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 5
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -340,7 +328,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 6
-    ORDER BY RAND()
+    
     LIMIT 2
 )
 UNION ALL
@@ -348,7 +336,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 7
-    ORDER BY RAND()
+    
     LIMIT 1
 )
 UNION ALL
@@ -356,7 +344,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 8
-    ORDER BY RAND()
+    
     LIMIT 14
 )
 UNION ALL
@@ -364,7 +352,7 @@ UNION ALL
     SELECT * 
     FROM question_otos
     WHERE type = 9
-    ORDER BY RAND()
+    
     LIMIT 11
 )) as q LEFT JOIN answer_otos ans ON q.id = ans.id_que;
   `;
@@ -374,8 +362,9 @@ UNION ALL
       return res.status(500).json({ error: err });
     }
 
+    // Sử dụng results.rows để lấy mảng kết quả từ PostgreSQL
     const questions = {};
-    results.forEach((row) => {
+    results.rows.forEach((row) => {
       if (!questions[row.id]) {
         questions[row.id] = {
           id: row.id,
@@ -395,8 +384,8 @@ UNION ALL
     res.json(Object.values(questions));
   });
 });
+
 // Chạy server
-const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server chạy trên cổng ${PORT}`);
 });
