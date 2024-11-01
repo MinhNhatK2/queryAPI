@@ -34,22 +34,25 @@ const createAPI = (route, sqlQuery) => {
         return res.status(500).json({ error: err });
       }
 
-      // Sử dụng results.rows để lấy mảng kết quả từ PostgreSQL
       const questions = {};
+
       results.rows.forEach((row) => {
-        if (!questions[row.id]) {
-          questions[row.id] = {
-            id: row.id,
-            type: row.type,
+        const questionId = parseInt(row.id); // Chuyển id sang số nguyên
+
+        if (!questions[questionId]) {
+          questions[questionId] = {
+            id: questionId,
+            type: parseInt(row.type),
             question_text: row.content,
-            image_url: row.url,
+            image_url: row.url || "", // Chuyển null thành chuỗi rỗng nếu không có url
             answers: [],
           };
         }
-        questions[row.id].answers.push({
-          answer_id: row.ans_id,
+
+        questions[questionId].answers.push({
+          answer_id: parseInt(row.ans_id), // Chuyển answer_id sang số nguyên
           answer_text: row.answer,
-          is_correct: row.is_correct,
+          is_correct: row.is_correct ? 1 : 0, // Chuyển true/false thành 1/0
         });
       });
 
